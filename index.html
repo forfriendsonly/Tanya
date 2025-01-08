@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Pacifico', cursive;
+            background: linear-gradient(to bottom, #001f3f, #011c47);
+            height: 100vh;
+            max-width: 600vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .card {
+            position: absolute;
+            width: 70%;
+            background-image: url('https://i.pinimg.com/originals/c0/93/25/c0932547bfcb7293823b91754e824e66.jpg');
+            
+            max-width: 300px;
+            height: 40vh;
+            aspect-ratio: 3 / 4;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: grab;
+            user-select: none;
+            animation: appear 0.5s ease-in-out;
+        }
+        .card3 {
+            position: absolute;
+            width: 70%;
+            background-image: url('https://i.pinimg.com/originals/c0/93/25/c0932547bfcb7293823b91754e824e66.jpg');
+            
+            max-width: 300px;
+            height: 40vh;
+            aspect-ratio: 3 / 4;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: grab;
+            user-select: none;
+            animation: appear 0.5s ease-in-out;
+        }
+         .img {
+            width: 90%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .img3 {
+            width: 70%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .card p {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        @keyframes appear {
+            from {
+                transform: scale(0.8) rotate(-10deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(0);
+                opacity: 1;
+            }
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, #001f3f, #011c47);
+        }
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <audio id="music" autoplay loop style="display: none;" >
+        <source src="audio.mpga" , type="audio/mpeg">
+    </audio>
+    <canvas class="snow"></canvas>
+    <div class="container">
+        <div class="card" style="top: 80px; left: 50px;">
+            <img class="img3" src="https://media.tenor.com/bTqZxbIYGOEAAAAM/lets-dance-cute-panda-gif.gif" alt="Image 1">
+            <p>Happy Birthday again 😂</p>
+        </div>
+        <div class="card" style="top: 120px; left: 100px;">
+            <img class="img" src="./img4.jpeg" alt="Image 2">
+            <p>Hope your day is amazing!</p>
+        </div>
+        <div class="card" style="top: 150px; left: 90px;">
+            <img class="img3" src="./img3.jpeg" alt="Image 3">
+            <p>You deserve all the happiness!</p>
+        </div>
+        <div class="card" style="top: 200px; left: 80px;">
+            <img class="img" src="./img2.jpeg" alt="Image 4">
+            <p>Thank you for being you!</p>
+        </div>
+        <div class="card" style="top: 250px; left: 70px;">
+            <img class="img" src="https://img.freepik.com/free-photo/view-cartoon-animal-practicing-yoga_23-2151532797.jpg" alt="Image 5">
+            <p>Sorry for being late </p>
+        </div>
+    </div>
+    <script>
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                const shiftX = touch.clientX - card.getBoundingClientRect().left;
+                const shiftY = touch.clientY - card.getBoundingClientRect().top;
+
+                function moveAt(pageX, pageY) {
+                    card.style.left = pageX - shiftX + 'px';
+                    card.style.top = pageY - shiftY + 'px';
+                }
+
+                function onTouchMove(event) {
+                    const touchMove = event.touches[0];
+                    moveAt(touchMove.pageX, touchMove.pageY);
+                }
+
+                document.addEventListener('touchmove', onTouchMove);
+
+                card.ontouchend = () => {
+                    document.removeEventListener('touchmove', onTouchMove);
+                    card.ontouchend = null;
+                };
+            });
+
+            card.ondragstart = () => false;
+        });
+
+        // Snow effect
+        const canvas = document.querySelector('.snow');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const snowflakes = Array.from({ length: 150 }, () => {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                speed: Math.random() * 1 + 0.5,
+            };
+        });
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            snowflakes.forEach(flake => {
+                ctx.beginPath();
+                ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+                flake.y += flake.speed;
+                if (flake.y > canvas.height) {
+                    flake.y = -flake.radius;
+                    flake.x = Math.random() * canvas.width;
+                }
+            });
+            requestAnimationFrame(drawSnow);
+        }
+
+        drawSnow();
+    </script>
+</body>
+</html>
